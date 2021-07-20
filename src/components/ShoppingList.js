@@ -5,21 +5,17 @@ function ShoppingList({ items }) {
   const [ selectedCategory, setSelectedCategory ] = useState("All")
 
   function handleFilterChange(e) {
-
     setSelectedCategory(e.target.value)
-
-    const selectedLists = items.filter((item) => item.category === selectedCategory)
-
-    console.log(selectedLists)
-
-    return (
-        <ul className="Items">
-          {selectedLists.map((item) => (
-            <Item key={item.id} name={item.name} category={item.category} />
-          ))}
-        </ul>
-    );
-  }
+  } // I should close this function here
+    
+  const selectedLists = items.filter((item) => { 
+    // put conditionals for the case of rendering all
+      if(selectedCategory === "All") {
+        return true;
+      } else {
+        return item.category === selectedCategory
+      }
+    })
 
   return (
     <div className="ShoppingList">
@@ -32,7 +28,8 @@ function ShoppingList({ items }) {
         </select>
       </div>
       <ul className="Items">
-        {items.map((item) => (
+      {/* now I can put updatedState here */}
+        {selectedLists.map((item) => (
           <Item key={item.id} name={item.name} category={item.category} />
         ))}
       </ul>
